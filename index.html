@@ -367,9 +367,9 @@
             
             <div class="audio-container">
                 <p>🔊 Escolta el resum de la unitat abans de començar:</p>
-                <!-- Substitueix el 'src' amb l'arxiu pujat al teu repositori, ex: src="audio.mp3" -->
-                <audio controls>
+                <audio controls id="main-audio">
                     <source src="audio.mp3" type="audio/mpeg">
+                    <source src="audio.m4a" type="audio/mp4">
                     El teu navegador no suporta l'element d'àudio.
                 </audio>
             </div>
@@ -414,7 +414,7 @@
                         <p class="comic-text">El treballador ha de signar-la i té dret a demanar la presència d'un representant legal dels treballadors. Signar sol implicar que s'accepta la liquidació i fi de reclamacions.</p>
                         <div class="comic-badge-container">
                             <span class="comic-badge">✍️ Signatura Conforme</span>
-                            <span class="comic-badge">👥 dret a RLT</span>
+                            <span class="comic-badge">👥 Dret a RLT</span>
                         </div>
                     </div>
                 </div>
@@ -423,7 +423,7 @@
             <div class="comic-panel" style="margin-top: 2rem;">
                 <div class="comic-header">Panell Financer: El Càlcul de la Liquidació Neta</div>
                 <div class="comic-body">
-                    <p class="comic-text">Per obtenir l'import final a percebre (líquid), cal sumar totes les meritacions brutes i restar-ne les deduccions per Seguretat Social (contingències comunes, atur i formació professional) i la retenció de l'IRPF. Les indemnitzacions per acomiadament solen estar exemptes d'IRPF fins al límit legal.</p>
+                    <p class="comic-text">Per obtenir l'import final a percebre (líquid), cal sumar totes les meritacions brutes i restar-ne les deduccions per Seguretat Social (contingències communes, atur i formació professional) i la retenció de l'IRPF. Les indemnitzacions per acomiadament solen estar exemptes d'IRPF fins al límit legal.</p>
                     <div class="comic-badge-container">
                         <span class="comic-badge">➕ Meritacions Brutes</span>
                         <span class="comic-badge">➖ Cotitzacions SS (4,7%)</span>
@@ -444,16 +444,15 @@
         <!-- PESTANYA 3: AVALUACIÓ -->
         <div id="avaluacio" class="tab-content">
             <h2>Avaluació de Coneixements (10 preguntes)</h2>
-            <p style="margin-bottom: 1.5rem;">Respon amb atenció. La nota s'enviarà automàticament al teu professor una vegada enviat el qüestionari.</p>
+            <p style="margin-bottom: 1.5rem;">Respon amb atenció. La nota es calcularà a la pantalla i s'enviarà de forma automàtica al correu del professor.</p>
             
-            <!-- Canvia el "el-teu-correu@domini.com" pel teu correu real de destinació -->
-            <form id="quiz-form" action="https://formspree.io/f/el-teu-correu@domini.com" method="POST" onsubmit="evaluateQuiz(event)">
+            <!-- Recorda canviar 'https://formspree.io/f/xqereveg' per la ID real de Formspree -->
+            <form id="quiz-form" action="https://formspree.io/f/EL_TEU_CODI_AQUI" method="POST" onsubmit="evaluateQuiz(event)">
                 <div class="form-group">
                     <label style="font-weight: bold; margin-bottom: 0.5rem; display:block;">Nom i Cognoms de l'Alumne/a:</label>
                     <input type="text" name="Nom Alumne" class="input-name" required placeholder="Escriu aquí el teu nom complet...">
                 </div>
 
-                <!-- Input ocults per enviar les dades mitjançant Formspree -->
                 <input type="hidden" name="_subject" value="Nova Nota d'Avaluació: Quitança i Liquidació">
                 <input type="hidden" id="hidden-nota" name="Nota Final">
 
@@ -472,7 +471,6 @@
     </footer>
 
     <script>
-        // Sistema de control de pestanyes
         function switchTab(evt, tabId) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -484,16 +482,15 @@
             evt.currentTarget.classList.add('active');
         }
 
-        // --- APARTAT EXERCICIS DRAG & DROP ---
         const dndData = [
             { id: 1, text: "Teòric 1", statement: "1. Defineix què és la quitança i en quins casos s'ha de lliurar al treballador.", solution: "És el document de liquidació que es lliura sempre que s'extingeix la relació laboral" },
             { id: 2, text: "Càlcul 2", statement: "2. Un treballador amb salari de 1.200 €/mes plega el dia 10 de març. Calcula el salari meritat per aquells 10 dies (considera mesos de 30 dies).", solution: "El salari corresponent a deu dies és de 400 euros" },
             { id: 3, text: "Vacances 3", statement: "3. Si un empleat ha generat 15 dies de vacances però no n'ha gaudit cap en el moment de la baixa, i el seu salari diari és de 45 €, quin import li correspon per aquest concepte?", solution: "Li correspon un import de 675 euros per vacances no gaudides" },
             { id: 4, text: "Prorrata 4", statement: "4. Calcula la part proporcional de la paga de Nadal (meritació anual de 1.800 €) d'un treballador que causa baixa el 30 de juny.", solution: "La prorrata meritada de la paga de Nadal és de 900 euros" },
-            { id: 5, text: "Indemnització 5", statement: "5. Un treballador finalitza un contracte temporal per circumstàncies de la producció després d'un any de servei. El seu salari mensual és de 1.000 €. Quina indemnització li pertoca (12 dies per any)?", solution: "Li pertoca una indemnització per fi de contracte de 400 euros" },
-            { id: 6, text: "Teòric 6", statement: "6. En cas de dimissió voluntària sense preavís, pot l'empresa realitzar algun descompte a la quitança? Explica per què.", solution: "Sí l'empresa pot descomptar els dies de preavís incomplerts segons el conveni col·lectiu" },
+            { id: 5, text: "Indemnització 5", statement: "5. Un treballador finalitza un contracte temporal per circumstàncies de la producció després d'un any de servei. El seu salari mensual és de 1.000 €. Quina indemnització li pertoca (12 dies per any)?", solution: "Li pertoca una indemnització per fi de contracte of 400 euros" },
+            { id: 6, text: "Teòric 6", statement: "6. En cas de dimissió voluntària sense preavís, pot l'empresa realitzar algun descompte a la quitança? Explica per qüestió.", solution: "Sí l'empresa pot descomptar els dies de preavís incomplerts segons el conveni col·lectiu" },
             { id: 7, text: "IRPF 7", statement: "7. Si el total meritat de la quitança (incloent vacances i extres) és de 2.500 € i la retenció és del 15%, calcula l'import de la retenció d'IRPF.", solution: "L'import de la retenció d'IRPF és de 375 euros" },
-            { id: 8, text: "Seguretat Social 8", statement: "8. Calcula la deducció per contingències communes (4,7%) sobre una base de cotització de 1.500 € inclosa en una liquidació.", solution: "La deducció per contingències comunes és de 70,50 euros" },
+            { id: 8, text: "Seguretat Social 8", statement: "8. Calcula la deducció per contingències comunes (4,7%) sobre una base de cotització de 1.500 € inclosa en una liquidació.", solution: "La deducció per contingències comunes és de 70,50 euros" },
             { id: 9, text: "Drets 9", statement: "9. Té dret un treballador que plega voluntàriament (dimissió) a cobrar la part proporcional de les pagues extres i les vacances?", solution: "Sí té dret a cobrar la part proporcional de les pagues extres i vacances no gaudides" },
             { id: 10, text: "Complet 10", statement: "10. Calcula el líquid a percebre: Salari pendent (500 €) + Vacances (200 €) + Extres (300 €). Total deduccions SS i IRPF: 120 €.", solution: "El líquid total a percebre és de 880 euros" }
         ];
@@ -537,7 +534,6 @@
                     dragZone.appendChild(wordEl);
                 });
 
-                // Configuració drag and drop zones
                 [dragZone, dropZone].forEach(zone => {
                     zone.addEventListener('dragover', (e) => e.preventDefault());
                     zone.addEventListener('drop', (e) => {
@@ -571,13 +567,12 @@
             });
         }
 
-        // --- APARTAT QUIZ TEST ---
         const quizQuestions = [
             { q: "1. Què és la quitança?", a: "Un document que conté la liquidació d'havers en finalitzar el contracte.", b: "Un premi per antiguitat.", c: "Una sanció disciplinària.", correct: "a" },
             { q: "2. Què s'inclou sempre en una liquidació, independentment del motiu de baixa?", a: "Una indemnització de 33 dies.", b: "Els salaris pendents, vacances no gaudides i prorrata de pagues extres.", c: "Només el salari de l'últim mes.", correct: "b" },
             { q: "3. Si un treballador no ha gaudit de les seves vacances en finalitzar el contracte:", a: "Les perd definitivament.", b: "L'empresa les ha d'abonar econòmicament en la quitança.", c: "Ha de demanar-les per fer-les després de la baixa.", correct: "b" },
             { q: "4. La indemnització per fi de contracte temporal per circumstàncies de la producció és de:", a: "33 dies per any.", b: "20 dies per any.", c: "12 dies per any.", correct: "c" },
-            { q: "5. En una dimissió (baixa voluntària), el treballador té dret a prestació per atur?", a: "Sí, sempre.", b: "No, l'atur ha de ser involuntari.", c: "Només si té fils.", correct: "b" },
+            { q: "5. En una dimissió (baixa voluntària), el treballador té dret a prestació per atur?", a: "Sí, sempre.", b: "No, l'atur ha de ser involuntari.", c: "Només si té fills.", correct: "b" },
             { q: "6. Quin dret té el treballador en el moment de signar la quitança?", a: "A no signar si no està d'acord.", b: "A demanar la presència d'un representant dels treballadors.", c: "Totes les anteriors són correctes.", correct: "c" },
             { q: "7. Si la paga extra és de 1.200 € i el període de meritació és de 6 mesos, quina prorrata correspon per 3 mesos treballats?", a: "600 €.", b: "300 €.", c: "1.200 €.", correct: "a" },
             { q: "8. Un treballador cobra 30 €/dia. Quina base de cotització diària per contingències comunes té si la prorrata d'extres és de 5 €/dia?", a: "30 €.", b: "35 €.", c: "25 €.", correct: "b" },
@@ -603,6 +598,9 @@
         }
 
         function evaluateQuiz(e) {
+            // Evitem que la pàgina es carregui immediatament abans de realitzar el càlcul JS
+            e.preventDefault();
+
             let score = 0;
             quizQuestions.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
@@ -611,7 +609,6 @@
                 }
             });
 
-            // Afegim la nota al input ocult que recollirà Formspree
             document.getElementById('hidden-nota').value = `${score} / 10`;
 
             const display = document.getElementById('result-display');
@@ -620,15 +617,19 @@
             if (score >= 5) {
                 display.style.backgroundColor = "#d4edda";
                 display.style.color = "#155724";
-                display.textContent = `Avaluació enviada. La teva nota és un: ${score} / 10. Felicitats!`;
+                display.textContent = `Avaluació processada. Nota: ${score} / 10. S'està enviant el formulari...`;
             } else {
                 display.style.backgroundColor = "#f8d7da";
                 display.style.color = "#721c24";
-                display.textContent = `Avaluació enviada. La teva nota és un: ${score} / 10. Cal repassar!`;
+                display.textContent = `Avaluació processada. Nota: ${score} / 10. S'està enviant el formulari...`;
             }
+
+            // Enviem les dades realment a Formspree un cop calculat tot
+            setTimeout(() => {
+                document.getElementById('quiz-form').submit();
+            }, 1000);
         }
 
-        // Execució inicial en carregar la finestra
         window.onload = function() {
             loadExercises();
             loadQuiz();
