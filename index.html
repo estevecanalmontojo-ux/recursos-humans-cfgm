@@ -423,7 +423,7 @@
             <div class="comic-panel" style="margin-top: 2rem;">
                 <div class="comic-header">Panell Financer: El Càlcul de la Liquidació Neta</div>
                 <div class="comic-body">
-                    <p class="comic-text">Per obtenir l'import final a percebre (líquid), cal sumar totes les meritacions brutes i restar-ne les deduccions per Seguretat Social (contingències communes, atur i formació professional) i la retenció de l'IRPF. Les indemnitzacions per acomiadament solen estar exemptes d'IRPF fins al límit legal.</p>
+                    <p class="comic-text">Per obtenir l'import final a percebre (líquid), cal sumar totes les meritacions brutes i restar-ne les deduccions per Seguretat Social (contingències comunes, atur i formació professional) i la retenció de l'IRPF. Les indemnitzacions per acomiadament solen estar exemptes d'IRPF fins al límit legal.</p>
                     <div class="comic-badge-container">
                         <span class="comic-badge">➕ Meritacions Brutes</span>
                         <span class="comic-badge">➖ Cotitzacions SS (4,7%)</span>
@@ -446,8 +446,8 @@
             <h2>Avaluació de Coneixements (10 preguntes)</h2>
             <p style="margin-bottom: 1.5rem;">Respon amb atenció. La nota es calcularà a la pantalla i s'enviarà de forma automàtica al correu del professor.</p>
             
-            <!-- Recorda canviar 'https://formspree.io/f/xqereveg' per la ID real de Formspree -->
-            <form id="quiz-form" action="https://formspree.io/f/EL_TEU_CODI_AQUI" method="POST" onsubmit="evaluateQuiz(event)">
+            <!-- ENLLAÇ DE FORMSPREE INTEGRAT CORRECTAMENT -->
+            <form id="quiz-form" action="https://formspree.io/f/xqereveg" method="POST" onsubmit="evaluateQuiz(event)">
                 <div class="form-group">
                     <label style="font-weight: bold; margin-bottom: 0.5rem; display:block;">Nom i Cognoms de l'Alumne/a:</label>
                     <input type="text" name="Nom Alumne" class="input-name" required placeholder="Escriu aquí el teu nom complet...">
@@ -487,8 +487,8 @@
             { id: 2, text: "Càlcul 2", statement: "2. Un treballador amb salari de 1.200 €/mes plega el dia 10 de març. Calcula el salari meritat per aquells 10 dies (considera mesos de 30 dies).", solution: "El salari corresponent a deu dies és de 400 euros" },
             { id: 3, text: "Vacances 3", statement: "3. Si un empleat ha generat 15 dies de vacances però no n'ha gaudit cap en el moment de la baixa, i el seu salari diari és de 45 €, quin import li correspon per aquest concepte?", solution: "Li correspon un import de 675 euros per vacances no gaudides" },
             { id: 4, text: "Prorrata 4", statement: "4. Calcula la part proporcional de la paga de Nadal (meritació anual de 1.800 €) d'un treballador que causa baixa el 30 de juny.", solution: "La prorrata meritada de la paga de Nadal és de 900 euros" },
-            { id: 5, text: "Indemnització 5", statement: "5. Un treballador finalitza un contracte temporal per circumstàncies de la producció després d'un any de servei. El seu salari mensual és de 1.000 €. Quina indemnització li pertoca (12 dies per any)?", solution: "Li pertoca una indemnització per fi de contracte of 400 euros" },
-            { id: 6, text: "Teòric 6", statement: "6. En cas de dimissió voluntària sense preavís, pot l'empresa realitzar algun descompte a la quitança? Explica per qüestió.", solution: "Sí l'empresa pot descomptar els dies de preavís incomplerts segons el conveni col·lectiu" },
+            { id: 5, text: "Indemnització 5", statement: "5. Un treballador finalitza un contracte temporal per circumstàncies de la producció després d'un any de servei. El seu salari mensual és de 1.000 €. Quina indemnització li pertoca (12 dies per any)?", solution: "Li pertoca una indemnització per fi de contracte de 400 euros" },
+            { id: 6, text: "Teòric 6", statement: "6. En cas de dimissió voluntària sense preavís, pot l'empresa realitzar algun descompte a la quitança? Explica per què.", solution: "Sí l'empresa pot descomptar els dies de preavís incomplerts segons el conveni col·lectiu" },
             { id: 7, text: "IRPF 7", statement: "7. Si el total meritat de la quitança (incloent vacances i extres) és de 2.500 € i la retenció és del 15%, calcula l'import de la retenció d'IRPF.", solution: "L'import de la retenció d'IRPF és de 375 euros" },
             { id: 8, text: "Seguretat Social 8", statement: "8. Calcula la deducció per contingències comunes (4,7%) sobre una base de cotització de 1.500 € inclosa en una liquidació.", solution: "La deducció per contingències comunes és de 70,50 euros" },
             { id: 9, text: "Drets 9", statement: "9. Té dret un treballador que plega voluntàriament (dimissió) a cobrar la part proporcional de les pagues extres i les vacances?", solution: "Sí té dret a cobrar la part proporcional de les pagues extres i vacances no gaudides" },
@@ -598,7 +598,6 @@
         }
 
         function evaluateQuiz(e) {
-            // Evitem que la pàgina es carregui immediatament abans de realitzar el càlcul JS
             e.preventDefault();
 
             let score = 0;
@@ -624,7 +623,6 @@
                 display.textContent = `Avaluació processada. Nota: ${score} / 10. S'està enviant el formulari...`;
             }
 
-            // Enviem les dades realment a Formspree un cop calculat tot
             setTimeout(() => {
                 document.getElementById('quiz-form').submit();
             }, 1000);
