@@ -3,215 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos Humans - Gestió Administrativa</title>
+    <title>La quitança i la liquidació</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #18bc9c;
-            --light-bg: #f8f9fa;
-            --dark-text: #2c3e50;
-            --white: #ffffff;
-            --border-color: #dce4ec;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --border: #dcdde1;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
+            background-color: #f1f2f6;
+            color: var(--dark);
             line-height: 1.6;
         }
 
         header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
             text-align: center;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         header p {
-            font-size: 1.1rem;
-            color: #ecf0f1;
+            font-size: 1.2rem;
+            color: #b2bec3;
         }
 
         nav {
-            background-color: #34495e;
+            background-color: var(--primary);
             display: flex;
             justify-content: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            padding: 1rem 1.5rem;
-            font-weight: bold;
-            transition: background 0.3s;
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #b2bec3;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
         }
 
-        nav a:hover {
-            background-color: var(--secondary-color);
+        .tab-btn:hover {
+            color: white;
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .tab-btn.active {
+            color: white;
+            border-bottom: 4px solid var(--secondary);
+            background-color: rgba(255,255,255,0.1);
         }
 
         .container {
-            max-width: 1000px;
-            margin: 2rem auto;
+            max-width: 1100px;
+            margin: 2.5rem auto;
             padding: 0 1.5rem;
         }
 
-        section {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+        .tab-content {
             display: none;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s ease;
         }
 
-        section.active {
+        .tab-content.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 0.5rem;
+            color: var(--primary);
             margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-left: 5px solid var(--secondary);
+            padding-left: 0.8rem;
         }
 
-        /* Elements Pràctics i Targetes */
-        .grid-ra {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .card {
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+        /* PESTANYA 1: TEORIA (CÒMIC I ÀUDIO) */
+        .audio-container {
+            background: var(--light);
             padding: 1.5rem;
-            background: var(--light-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .card h3 {
-            margin-bottom: 0.8rem;
-            color: var(--primary-color);
-        }
-
-        /* Formulari d'Activitats */
-        .btn {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            cursor: pointer;
+        .audio-container p {
             font-weight: bold;
-            font-size: 0.95rem;
-            transition: background 0.3s;
+            color: var(--primary);
         }
 
-        .btn:hover {
-            background-color: #128f76;
+        audio {
+            width: 100%;
+            max-width: 500px;
         }
 
-        .form-group {
-            margin-bottom: 1.2rem;
+        .comic-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
+        @media (min-width: 768px) {
+            .comic-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .comic-panel {
+            border: 3px solid var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comic-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .comic-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .comic-text {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .comic-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .comic-badge {
+            background: #e1f5fe;
+            color: #0288d1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        /* PESTANYA 2: EXERCICIS DRAG & DROP */
+        .exercise-card {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .exercise-statement {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .drag-zone, .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1rem;
+            min-height: 60px;
+            border-radius: 6px;
+            align-items: center;
+        }
+
+        .drag-zone {
+            background: #dfe4ea;
+            border: 1px dashed #a4b0be;
+            margin-bottom: 1rem;
+        }
+
+        .drop-zone {
+            background: white;
+            border: 2px solid var(--border);
+        }
+
+        .word-item {
+            background: white;
+            color: var(--dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: grab;
+            border: 1px solid #ced6e0;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+        .word-item.incorrect {
+            background-color: #ffcccc !important;
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .word-item.correct {
+            background-color: #d4edda !important;
+            color: #155724;
+            border-color: #c3e6cb;
+            cursor: default;
+        }
+
+        /* PESTANYA 3: TEST D'AVALUACIÓ */
+        .q-card {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary);
+            background: var(--light);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .q-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .options-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .options-list label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .options-list label:hover {
+            background: #e9ecef;
+        }
+
+        .btn-submit {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #27ae60;
+        }
+
+        .input-name {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            outline: none;
-        }
-
-        /* Eina de IA / Chatbot */
-        .chat-box {
-            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--border);
             border-radius: 6px;
-            height: 350px;
-            display: flex;
-            flex-direction: column;
-            background: #fafafa;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .message {
-            margin-bottom: 1rem;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            max-width: 80%;
-        }
-
-        .message.bot {
-            background-color: #eaeaea;
-            align-self: flex-start;
-        }
-
-        .message.user {
-            background-color: #d2f4ea;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-
-        .chat-input-area {
-            display: flex;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            border: none;
-            padding: 1rem;
+            font-size: 1rem;
             outline: none;
         }
 
-        .chat-input-area button {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 0 1.5rem;
-            cursor: pointer;
+        .input-name:focus {
+            border-color: var(--secondary);
         }
 
-        .chat-input-area button:hover {
-            background-color: #1a252f;
-        }
-
-        .feedback {
-            margin-top: 1rem;
+        .result-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #27ae60;
-        }
-
-        .feedback.incorrect {
-            color: #c0392b;
         }
 
         footer {
@@ -225,191 +349,290 @@
 <body>
 
     <header>
-        <h1>Operacions Administratives de Recursos Humans</h1>
-        <p>Cicle Formatiu de Grau Mitjà - Gestió Administrativa</p>
+        <h1>La quitança i la liquidació</h1>
+        <p>Recursos Educatius Interactius i Didàctics - Gestió Administrativa</p>
     </header>
 
     <nav>
-        <a href="#" onclick="showSection('inici')">Inici i Presentació</a>
-        <a href="#" onclick="showSection('activitats')">Activitats RA</a>
-        <a href="#" onclick="showSection('ia')">Assistent de Dubtes IA</a>
+        <button class="tab-btn active" onclick="switchTab(event, 'teoria')">1. Bloc de Teoria</button>
+        <button class="tab-btn" onclick="switchTab(event, 'exercicis')">2. Bloc d'Exercicis</button>
+        <button class="tab-btn" onclick="switchTab(event, 'avaluacio')">3. Avaluació Final</button>
     </nav>
 
     <div class="container">
         
-        <!-- SECCIÓ INICI -->
-        <section id="inici" class="active">
-            <h2>Presentació del Curs</h2>
-            <p>Benvinguts a l'espai educatiu del crèdit de <strong>Operacions administratives de recursos humans</strong>. En aquest lloc web podràs posar en pràctica de manera interactiva els coneixements consolidats al llarg de l'assignatura.</p>
-            <br>
-            <p>El curs s'estructura en blocs fonamentals alineats amb els resultats d'aprenentatge essencials per al teixit empresarial actual[cite: 1]:</p>
+        <!-- PESTANYA 1: TEORIA -->
+        <div id="teoria" class="tab-content active">
+            <h2>Marc Teòric: Introducció Conceptual</h2>
             
-            <div class="grid-ra">
-                <div class="card">
-                    <h3>1. Contractació i Extinció</h3>
-                    <p>Confecció de la documentació relativa al procés de contractació, modificació, suspensió i extinció del contracte de treball[cite: 1].</p>
-                </div>
-                <div class="card">
-                    <h3>2. Retribucions i Seguretat Social</h3>
-                    <p>Elaboració de la documentació corresponent al pagament de retribucions del personal (nòmines) i liquidacions amb la Seguretat Social[cite: 1].</p>
-                </div>
-                <div class="card">
-                    <h3>3. Simulació Informatitzada</h3>
-                    <p>Simulació de la gestió integral de personal mitjançant l'ús de programari de gestió com NominaSOL o similars[cite: 1].</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓ ACTIVITATS (RA) -->
-        <section id="activitats">
-            <h2>Activitats Interactives (Avaluació de RAs)</h2>
-            <p style="margin-bottom: 1.5rem;">Posa a prova els teus coneixements teòrics amb aquestes activitats ràpides d'avaluació formativa:</p>
-
-            <!-- Cas RA1: Contractes -->
-            <div class="card" style="margin-bottom: 1.5rem;">
-                <h3>Activitat RA1: Modalitats de Contractació</h3>
-                <p style="margin-bottom: 1rem;">Quin tipus de contracte té com a finalitat permetre que un treballador prejubilat redueixi la seva jornada laboral simultàniament a la incorporació d'un nou professional desocupat?[cite: 1]</p>
-                <div class="form-group">
-                    <select id="q-contractes">
-                        <option value="">-- Selecciona una opció --</option>
-                        <option value="discontinu">Contracte fix discontinu[cite: 1]</option>
-                        <option value="relleu">Contracte de relleu[cite: 1]</option>
-                        <option value="alternanca">Contracte de formació en alternança[cite: 1]</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="validarRA1()">Comprova la resposta</button>
-                <div id="feedback-ra1" class="feedback"></div>
+            <div class="audio-container">
+                <p>🔊 Escolta el resum de la unitat abans de començar:</p>
+                <!-- Substitueix el 'src' amb l'arxiu pujat al teu repositori, ex: src="audio.mp3" -->
+                <audio controls>
+                    <source src="audio.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
             </div>
 
-            <!-- Cas RA2: Càlcul de Base de Cotització -->
-            <div class="card">
-                <h3>Activitat RA2: Càlcul de Nòmina i Cotitzacions</h3>
-                <p style="margin-bottom: 1rem;">Un auxiliar administratiu (Grup 7 de cotització) compta amb un Salari Base de 1.200 € mensuals i té dret a 2 pagues extres a l'any de 1.500 € cadascuna[cite: 1]. Quina serà la seva <strong>Base de Cotització per Contingències Comunes (BCCC)</strong> mensual?[cite: 1]</p>
-                <div class="form-group">
-                    <input type="number" id="q-nomina" placeholder="Introdueix l'import en € (ex: 1500)">
-                </div>
-                <button class="btn" onclick="validarRA2()">Comprova el càlcul</button>
-                <div id="feedback-ra2" class="feedback"></div>
-            </div>
-        </section>
-
-        <!-- SECCIÓ IA / CHATBOT -->
-        <section id="ia">
-            <h2>Assistent de Recursos Humans (IA Educativa)</h2>
-            <p style="margin-bottom: 1.5rem;">Pregunta qualsevol dubte teòric a l'assistent interactiu de l'assignatura. Pots consultar sobre convenis col·lectius, el període de prova, nòmines o tipus de contractes[cite: 1].</p>
-            
-            <div class="chat-box">
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message bot">
-                        Hola! Sóc l'assistent de IA del departament de Recursos Humans[cite: 1]. En què et puc ajudar avui? Pots provar de preguntar-me sobre "vacances", "periode de prova" o "contracte formatu"[cite: 1].
+            <div class="comic-grid">
+                <div class="comic-panel">
+                    <div class="comic-header">Panell 1: Què és la quitança?</div>
+                    <div class="comic-body">
+                        <p class="comic-text"><strong>Concepte i Definició:</strong> La quitança és el document que l'empresa lliura al treballador quan finalitza la relació laboral, independentment de la causa (acomiadament, dimissió, finalització de contracte, etc.).</p>
+                        <div class="comic-badge-container">
+                            <span class="comic-badge">📄 Document de Baixa</span>
+                            <span class="comic-badge">💼 Fi de Relació Laboral</span>
+                        </div>
                     </div>
                 </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Escriu la teva consulta sobre Recursos Humans..." onkeypress="checkEnter(event)">
-                    <button onclick="sendMessage()">Enviar</button>
+
+                <div class="comic-panel">
+                    <div class="comic-header">Panell 2: La Liquidació d'Habers</div>
+                    <div class="comic-body">
+                        <p class="comic-text">Conté la liquidació detallada de totes les quantitats econòmiques que l'empresa encara deu al treballador pels serveis prestats fins aquell moment.</p>
+                        <div class="comic-badge-container">
+                            <span class="comic-badge">💶 Salaris de l'últim mes</span>
+                            <span class="comic-badge">🏖️ Vacances no gaudides</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comic-panel">
+                    <div class="comic-header">Panell 3: Prorrates i Conceptes Extres</div>
+                    <div class="comic-body">
+                        <p class="comic-text">Inclou també la prorrata de pagues extraordinàries (Nadal i estiu) meritades fins a la data, indemnitzacions segons tipus d'extinció i salaris de tramitació si s'escau.</p>
+                        <div class="comic-badge-container">
+                            <span class="comic-badge">📈 Prorrata d'Extres</span>
+                            <span class="comic-badge">💰 Indemnitzacions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comic-panel">
+                    <div class="comic-header">Panell 4: Aspectes Formals i Signatura</div>
+                    <div class="comic-body">
+                        <p class="comic-text">El treballador ha de signar-la i té dret a demanar la presència d'un representant legal dels treballadors. Signar sol implicar que s'accepta la liquidació i fi de reclamacions.</p>
+                        <div class="comic-badge-container">
+                            <span class="comic-badge">✍️ Signatura Conforme</span>
+                            <span class="comic-badge">👥 dret a RLT</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+
+            <div class="comic-panel" style="margin-top: 2rem;">
+                <div class="comic-header">Panell Financer: El Càlcul de la Liquidació Neta</div>
+                <div class="comic-body">
+                    <p class="comic-text">Per obtenir l'import final a percebre (líquid), cal sumar totes les meritacions brutes i restar-ne les deduccions per Seguretat Social (contingències comunes, atur i formació professional) i la retenció de l'IRPF. Les indemnitzacions per acomiadament solen estar exemptes d'IRPF fins al límit legal.</p>
+                    <div class="comic-badge-container">
+                        <span class="comic-badge">➕ Meritacions Brutes</span>
+                        <span class="comic-badge">➖ Cotitzacions SS (4,7%)</span>
+                        <span class="comic-badge">➖ Retenció IRPF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTANYA 2: EXERCICIS -->
+        <div id="exercicis" class="tab-content">
+            <h2>Activitat de Reconstrucció de Respostes (Drag & Drop)</h2>
+            <p style="margin-bottom: 2rem; color:#7f8c8d;">Arrossega les paraules cap a la zona blanca per ordenar la definició o solució correcta. Si una paraula es torna vermella, vol dir que no està en la posició correcta de la seqüència textual.</p>
+            
+            <div id="exercises-container"></div>
+        </div>
+
+        <!-- PESTANYA 3: AVALUACIÓ -->
+        <div id="avaluacio" class="tab-content">
+            <h2>Avaluació de Coneixements (10 preguntes)</h2>
+            <p style="margin-bottom: 1.5rem;">Respon amb atenció. La nota s'enviarà automàticament al teu professor una vegada enviat el qüestionari.</p>
+            
+            <!-- Canvia el "el-teu-correu@domini.com" pel teu correu real de destinació -->
+            <form id="quiz-form" action="https://formspree.io/f/el-teu-correu@domini.com" method="POST" onsubmit="evaluateQuiz(event)">
+                <div class="form-group">
+                    <label style="font-weight: bold; margin-bottom: 0.5rem; display:block;">Nom i Cognoms de l'Alumne/a:</label>
+                    <input type="text" name="Nom Alumne" class="input-name" required placeholder="Escriu aquí el teu nom complet...">
+                </div>
+
+                <!-- Input ocults per enviar les dades mitjançant Formspree -->
+                <input type="hidden" name="_subject" value="Nova Nota d'Avaluació: Quitança i Liquidació">
+                <input type="hidden" id="hidden-nota" name="Nota Final">
+
+                <div id="quiz-questions"></div>
+
+                <button type="submit" class="btn-submit">Enviar Avaluació i Finalitzar</button>
+            </form>
+
+            <div id="result-display" class="result-box"></div>
+        </div>
 
     </div>
 
     <footer>
-        <p>© 2026 Material Docent de Recursos Humans - CFGM Gestió Administrativa[cite: 1]</p>
+        <p>© 2026 Operacions Administratives de Recursos Humans - Unitat de Quitança</p>
     </footer>
 
     <script>
-        // Sistema de navegació senzill per pestanyes (Single Page Application)
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-        }
-
-        // Activitat 1: Validació de contractació
-        function validarRA1() {
-            const resposta = document.getElementById('q-contractes').value;
-            const feedback = document.getElementById('feedback-ra1');
+        // Sistema de control de pestanyes
+        function switchTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
             
-            if (resposta === 'relleu') {
-                feedback.className = "feedback";
-                feedback.textContent = "Correcte! El contracte de relleu serveix precisament per substituir la jornada reduïda per una jubilació parcial[cite: 1].";
-            } else if (resposta === "") {
-                feedback.className = "feedback incorrect";
-                feedback.textContent = "Si us plau, selecciona una resposta.";
-            } else {
-                feedback.className = "feedback incorrect";
-                feedback.textContent = "Incorrecte. Torna a repassar les modalitats contractuals del mòdul[cite: 1].";
-            }
-        }
-
-        // Activitat 2: Validació de nòmines
-        function validarRA2() {
-            const valorInput = parseFloat(document.getElementById('q-nomina').value);
-            const feedback = document.getElementById('feedback-ra2');
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
             
-            // Càlcul correcte: Salari base (1200) + prorrata de pagues extres (2 * 1500 / 12 = 250) = 1450 €[cite: 1].
-            const valorCorrecte = 1450;
-
-            if (valorInput === valorCorrecte) {
-                feedback.className = "feedback";
-                feedback.innerHTML = "Excel·lent! El càlcul és correcte. <br>BCCC = Salari Base (1.200 €) + Prorrata de Pagues Extres (250 €) = 1.450 € mensuals[cite: 1].";
-            } else if (isNaN(valorInput)) {
-                feedback.className = "feedback incorrect";
-                feedback.textContent = "Si us plau, introdueix un número vàlid.";
-            } else {
-                feedback.className = "feedback incorrect";
-                feedback.innerHTML = "Incorrecte. Recorda que la Base de Cotització per Contingències Comunes (BCCC) requereix sumar la prorrata mensual de les pagues extraordinàries[cite: 1].";
-            }
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
 
-        // Funcionament del Chatbot Educatiu de IA / Respostes simulades de patrons clau
-        const baseConeixement = {
-            "vacances": "La durada mínima de les vacances anuals és de 30 dies naturals i s'han de gaudir dins de l'any natural en què es generen[cite: 1]. No són substituïbles per compensació econòmica[cite: 1].",
-            "periode de prova": "S'ha de pactar per escrit[cite: 1]. Com a norma general, la durada màxima no pot excedir els 6 mesos per a tècnics titulats, ni 2 mesos per a la resta de treballadors[cite: 1]. Durant aquest temps es pot rescindir el contracte sense preavís ni indemnització[cite: 1].",
-            "contracte formatiu": "Hi ha dues modalitats: 1) Contracte de formació en alternança (adquirir competència teoricopràctica) i 2) Contracte per a l'obtenció de pràctica professional (per a titulats universitaris o d'FP dins els 3 anys posteriors al títol)[cite: 1].",
-            "salari minim": "El Salari Mínim Interprofessional (SMI) és el límit retributiu per sota del qual no es pot pagar a un treballador a jornada completa[cite: 1]. L'any 2024 va quedar fixat en 1.134,00 € mensuals en 14 pagues[cite: 1].",
-            "conveni collectiu": "És un acord negociat entre organitzacions representatives de treballadors (sindicats) i els empresaris per regular les condicions laborals[cite: 1]. Poden ser d'empresa, sectorials o d'àmbit territorial[cite: 1].",
-            "quitanca": "La quitança (o liquidació) és el document que recull la liquidació econòmica de les quantitats que l'empresa deu al treballador al finalitzar la relació laboral: vacances no gaudides, part proporcional de pagues extres i el mes en curs[cite: 1].",
-            "hores extres": "Són les hores de treball efectiu realitzades per sobre de la jornada ordinària[cite: 1]. El límit màxim anual d'hores extraordinàries comunes és de 80 hores a l'any (proporcional si és jornada a temps parcial)[cite: 1]. No inclou les de força major[cite: 1]."
-        };
+        // --- APARTAT EXERCICIS DRAG & DROP ---
+        const dndData = [
+            { id: 1, text: "Teòric 1", statement: "1. Defineix què és la quitança i en quins casos s'ha de lliurar al treballador.", solution: "És el document de liquidació que es lliura sempre que s'extingeix la relació laboral" },
+            { id: 2, text: "Càlcul 2", statement: "2. Un treballador amb salari de 1.200 €/mes plega el dia 10 de març. Calcula el salari meritat per aquells 10 dies (considera mesos de 30 dies).", solution: "El salari corresponent a deu dies és de 400 euros" },
+            { id: 3, text: "Vacances 3", statement: "3. Si un empleat ha generat 15 dies de vacances però no n'ha gaudit cap en el moment de la baixa, i el seu salari diari és de 45 €, quin import li correspon per aquest concepte?", solution: "Li correspon un import de 675 euros per vacances no gaudides" },
+            { id: 4, text: "Prorrata 4", statement: "4. Calcula la part proporcional de la paga de Nadal (meritació anual de 1.800 €) d'un treballador que causa baixa el 30 de juny.", solution: "La prorrata meritada de la paga de Nadal és de 900 euros" },
+            { id: 5, text: "Indemnització 5", statement: "5. Un treballador finalitza un contracte temporal per circumstàncies de la producció després d'un any de servei. El seu salari mensual és de 1.000 €. Quina indemnització li pertoca (12 dies per any)?", solution: "Li pertoca una indemnització per fi de contracte de 400 euros" },
+            { id: 6, text: "Teòric 6", statement: "6. En cas de dimissió voluntària sense preavís, pot l'empresa realitzar algun descompte a la quitança? Explica per què.", solution: "Sí l'empresa pot descomptar els dies de preavís incomplerts segons el conveni col·lectiu" },
+            { id: 7, text: "IRPF 7", statement: "7. Si el total meritat de la quitança (incloent vacances i extres) és de 2.500 € i la retenció és del 15%, calcula l'import de la retenció d'IRPF.", solution: "L'import de la retenció d'IRPF és de 375 euros" },
+            { id: 8, text: "Seguretat Social 8", statement: "8. Calcula la deducció per contingències communes (4,7%) sobre una base de cotització de 1.500 € inclosa en una liquidació.", solution: "La deducció per contingències comunes és de 70,50 euros" },
+            { id: 9, text: "Drets 9", statement: "9. Té dret un treballador que plega voluntàriament (dimissió) a cobrar la part proporcional de les pagues extres i les vacances?", solution: "Sí té dret a cobrar la part proporcional de les pagues extres i vacances no gaudides" },
+            { id: 10, text: "Complet 10", statement: "10. Calcula el líquid a percebre: Salari pendent (500 €) + Vacances (200 €) + Extres (300 €). Total deduccions SS i IRPF: 120 €.", solution: "El líquid total a percebre és de 880 euros" }
+        ];
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim().toLowerCase();
-            if (text === "") return;
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
 
-            appendMessage(input.value, 'user');
-            input.value = "";
+        function loadExercises() {
+            const container = document.getElementById('exercises-container');
+            dndData.forEach((ex) => {
+                const words = ex.solution.split(" ");
+                const shuffledWords = shuffle([...words]);
 
-            // Simulació d'un petit delay d'intel·ligència artificial
-            setTimeout(() => {
-                let resposta = "Ho sento, encara estic aprenent. Pots fer-me consultes utilitzant paraules clau com 'vacances', 'periode de prova', 'contracte formatiu', 'salari minim', 'conveni' o 'quitanca'[cite: 1].";
-                
-                // Cerca senzilla de coincidències per paraules clau
-                for (const key in baseConeixement) {
-                    if (text.includes(key)) {
-                        resposta = baseConeixement[key];
-                        break;
-                    }
+                const card = document.createElement('div');
+                card.className = 'exercise-card';
+
+                const statement = document.createElement('div');
+                statement.className = 'exercise-statement';
+                statement.textContent = ex.statement;
+
+                const dragZone = document.createElement('div');
+                dragZone.className = 'drag-zone';
+                dragZone.id = `drag-${ex.id}`;
+
+                const dropZone = document.createElement('div');
+                dropZone.className = 'drop-zone';
+                dropZone.id = `drop-${ex.id}`;
+
+                shuffledWords.forEach((word, index) => {
+                    const wordEl = document.createElement('span');
+                    wordEl.className = 'word-item';
+                    wordEl.textContent = word;
+                    wordEl.draggable = true;
+                    wordEl.id = `word-${ex.id}-${index}`;
+                    
+                    wordEl.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', e.target.id);
+                    });
+
+                    dragZone.appendChild(wordEl);
+                });
+
+                // Configuració drag and drop zones
+                [dragZone, dropZone].forEach(zone => {
+                    zone.addEventListener('dragover', (e) => e.preventDefault());
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const id = e.dataTransfer.getData('text/plain');
+                        const draggedEl = document.getElementById(id);
+                        if(draggedEl && id.split('-')[1] == ex.id) {
+                            zone.appendChild(draggedEl);
+                            checkOrder(ex.id, words);
+                        }
+                    });
+                });
+
+                card.appendChild(statement);
+                card.appendChild(dragZone);
+                card.appendChild(dropZone);
+                container.appendChild(card);
+            });
+        }
+
+        function checkOrder(exId, correctWords) {
+            const dropZone = document.getElementById(`drop-${exId}`);
+            const currentWords = dropZone.querySelectorAll('.word-item');
+            
+            currentWords.forEach((wordEl, index) => {
+                if (wordEl.textContent === correctWords[index]) {
+                    wordEl.className = 'word-item correct';
+                } else {
+                    wordEl.className = 'word-item incorrect';
                 }
-                appendMessage(resposta, 'bot');
-            }, 500);
+            });
         }
 
-        function appendMessage(text, sender) {
-            const chatMessages = document.getElementById('chat-messages');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${sender}`;
-            msgDiv.textContent = text;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll avall
+        // --- APARTAT QUIZ TEST ---
+        const quizQuestions = [
+            { q: "1. Què és la quitança?", a: "Un document que conté la liquidació d'havers en finalitzar el contracte.", b: "Un premi per antiguitat.", c: "Una sanció disciplinària.", correct: "a" },
+            { q: "2. Què s'inclou sempre en una liquidació, independentment del motiu de baixa?", a: "Una indemnització de 33 dies.", b: "Els salaris pendents, vacances no gaudides i prorrata de pagues extres.", c: "Només el salari de l'últim mes.", correct: "b" },
+            { q: "3. Si un treballador no ha gaudit de les seves vacances en finalitzar el contracte:", a: "Les perd definitivament.", b: "L'empresa les ha d'abonar econòmicament en la quitança.", c: "Ha de demanar-les per fer-les després de la baixa.", correct: "b" },
+            { q: "4. La indemnització per fi de contracte temporal per circumstàncies de la producció és de:", a: "33 dies per any.", b: "20 dies per any.", c: "12 dies per any.", correct: "c" },
+            { q: "5. En una dimissió (baixa voluntària), el treballador té dret a prestació per atur?", a: "Sí, sempre.", b: "No, l'atur ha de ser involuntari.", c: "Només si té fils.", correct: "b" },
+            { q: "6. Quin dret té el treballador en el moment de signar la quitança?", a: "A no signar si no està d'acord.", b: "A demanar la presència d'un representant dels treballadors.", c: "Totes les anteriors són correctes.", correct: "c" },
+            { q: "7. Si la paga extra és de 1.200 € i el període de meritació és de 6 mesos, quina prorrata correspon per 3 mesos treballats?", a: "600 €.", b: "300 €.", c: "1.200 €.", correct: "a" },
+            { q: "8. Un treballador cobra 30 €/dia. Quina base de cotització diària per contingències comunes té si la prorrata d'extres és de 5 €/dia?", a: "30 €.", b: "35 €.", c: "25 €.", correct: "b" },
+            { q: "9. La quitança s'ha de lliurar:", a: "Només si el treballador és acomiadat.", b: "Sempre que s'extingeixi la relació laboral.", c: "Només si el treballador ho demana per escrit.", correct: "b" },
+            { q: "10. Les indemnitzacions per acomiadament en la quitança:", a: "Sempre tenen retenció d'IRPF.", b: "Estan exemptes d'IRPF fins al límit legal.", c: "Són conceptes no salarials que cotitzen íntegrament a la Seguretat Social.", correct: "b" }
+        ];
+
+        function loadQuiz() {
+            const container = document.getElementById('quiz-questions');
+            quizQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'q-card';
+                card.innerHTML = `
+                    <div class="q-title">${q.q}</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="q${idx}" value="a" required> ${q.a}</label></li>
+                        <li><label><input type="radio" name="q${idx}" value="b"> ${q.b}</label></li>
+                        <li><label><input type="radio" name="q${idx}" value="c"> ${q.c}</label></li>
+                    </ul>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function checkEnter(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
+        function evaluateQuiz(e) {
+            let score = 0;
+            quizQuestions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    score++;
+                }
+            });
+
+            // Afegim la nota al input ocult que recollirà Formspree
+            document.getElementById('hidden-nota').value = `${score} / 10`;
+
+            const display = document.getElementById('result-display');
+            display.style.display = "block";
+            
+            if (score >= 5) {
+                display.style.backgroundColor = "#d4edda";
+                display.style.color = "#155724";
+                display.textContent = `Avaluació enviada. La teva nota és un: ${score} / 10. Felicitats!`;
+            } else {
+                display.style.backgroundColor = "#f8d7da";
+                display.style.color = "#721c24";
+                display.textContent = `Avaluació enviada. La teva nota és un: ${score} / 10. Cal repassar!`;
             }
         }
+
+        // Execució inicial en carregar la finestra
+        window.onload = function() {
+            loadExercises();
+            loadQuiz();
+        };
     </script>
 </body>
 </html>
