@@ -370,6 +370,7 @@
                 <audio controls id="main-audio">
                     <source src="audio.mp3" type="audio/mpeg">
                     <source src="audio.m4a" type="audio/mp4">
+                    <source src="Com_cobrar_tota_la_liquidació_final.m4a" type="audio/mp4">
                     El teu navegador no suporta l'element d'àudio.
                 </audio>
             </div>
@@ -446,19 +447,15 @@
             <h2>Avaluació de Coneixements (10 preguntes)</h2>
             <p style="margin-bottom: 1.5rem;">Respon amb atenció. La nota es calcularà a la pantalla i s'enviarà de forma automàtica al correu del professor.</p>
             
-            <!-- ENLLAÇ DE FORMSPREE INTEGRAT CORRECTAMENT -->
-            <form id="quiz-form" action="https://formspree.io/f/xqereveg" method="POST" onsubmit="evaluateQuiz(event)">
+            <form id="quiz-form" onsubmit="evaluateQuiz(event)">
                 <div class="form-group">
                     <label style="font-weight: bold; margin-bottom: 0.5rem; display:block;">Nom i Cognoms de l'Alumne/a:</label>
-                    <input type="text" name="Nom Alumne" class="input-name" required placeholder="Escriu aquí el teu nom complet...">
+                    <input type="text" id="input-student-name" class="input-name" required placeholder="Escriu aquí el teu nom complet...">
                 </div>
-
-                <input type="hidden" name="_subject" value="Nova Nota d'Avaluació: Quitança i Liquidació">
-                <input type="hidden" id="hidden-nota" name="Nota Final">
 
                 <div id="quiz-questions"></div>
 
-                <button type="submit" class="btn-submit">Enviar Avaluació i Finalitzar</button>
+                <button type="submit" class="btn-submit" id="submit-btn">Enviar Avaluació i Finalitzar</button>
             </form>
 
             <div id="result-display" class="result-box"></div>
@@ -600,6 +597,11 @@
         function evaluateQuiz(e) {
             e.preventDefault();
 
+            // Desactivem el botó per evitar clics duplicats
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "S'està enviant...";
+
             let score = 0;
             quizQuestions.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
@@ -608,24 +610,51 @@
                 }
             });
 
-            document.getElementById('hidden-nota').value = `${score} / 10`;
+            const studentName = document.getElementById('input-student-name').value;
+            const finalScore = `${score} / 10`;
 
             const display = document.getElementById('result-display');
             display.style.display = "block";
-            
-            if (score >= 5) {
-                display.style.backgroundColor = "#d4edda";
-                display.style.color = "#155724";
-                display.textContent = `Avaluació processada. Nota: ${score} / 10. S'està enviant el formulari...`;
-            } else {
-                display.style.backgroundColor = "#f8d7da";
-                display.style.color = "#721c24";
-                display.textContent = `Avaluació processada. Nota: ${score} / 10. S'està enviant el formulari...`;
-            }
+            display.style.backgroundColor = "#e1f5fe";
+            display.style.color = "#0288d1";
+            display.textContent = "Processant la tramesa del test...";
 
-            setTimeout(() => {
-                document.getElementById('quiz-form').submit();
-            }, 1000);
+            // Creem l'objecte de dades formatades per a Formspree
+            const formData = new FormData();
+            formData.append('Nom Alumne', studentName);
+            formData.append('Nota Final', finalScore);
+            formData.append('_subject', `Nova Nota d'Avaluació: Quitança de ${studentName}`);
+
+            // Enviem les dades utilitzant AJAX (Fetch) de forma asíncrona
+            fetch('https://formspree.io/f/xqereveg', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    if (score >= 5) {
+                        display.style.backgroundColor = "#d4edda";
+                        display.style.color = "#155724";
+                        display.textContent = `Avaluació enviada correctament! S'ha registrat la teva nota: ${finalScore}. Excel·lent feina!`;
+                    } else {
+                        display.style.backgroundColor = "#f8d7da";
+                        display.style.color = "#721c24";
+                        display.textContent = `Avaluació enviada correctament! S'ha registrat la teva nota: ${finalScore}. Cal continuar repassant!`;
+                    }
+                } else {
+                    throw new Error('Error en la resposta de Formspree');
+                }
+            })
+            .catch(error => {
+                display.style.backgroundColor = "#ffe0e0";
+                display.style.color = "#c0392b";
+                display.textContent = "S'ha produït un error en enviar la nota. Si us plau, avisa al teu professor.";
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Enviar Avaluació i Finalitzar";
+            });
         }
 
         window.onload = function() {
